@@ -1,0 +1,27 @@
+{% load staticfiles %}
+{% load static %}
+
+<html>
+	<head>
+		<title>
+			{% block page_title %} {% endblock %}
+		</title>
+	</head>
+
+	<body>
+		<nav>
+			<a href="{% url 'home_page' %}">Home</a>
+			<a href="{% url 'accounts:register_user' %}">Register</a>
+			<a href="{% url 'accounts:login_user' %}">Log in</a>
+			<a href="{% url 'accounts:logout_user' %}">Logout</a>
+			{{ request.user.username }}
+		</nav>
+		{% for message in messages %}
+			{{ message }}
+		{% endfor %}
+		
+		{% block content %}{% endblock %}
+
+	</body>
+
+</html>
