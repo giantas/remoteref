@@ -114,6 +114,9 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
+# Login url
+LOGIN_URL = '/accounts/login/'
+
 # Custom User model
 AUTH_USER_MODEL = 'accounts.CustomUser'
 

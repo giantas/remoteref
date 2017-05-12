@@ -44,6 +44,7 @@ def register_user(request):
 
 
 def login_user(request):
+    next_page = request.GET.get('next').strip()
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('home_page'))
 
@@ -62,6 +63,9 @@ def login_user(request):
                     login(request, user)
                     messages.success(
                         request, 'Login successful. Welcome %s' % username)
+
+                    if next_page:
+                        return HttpResponseRedirect(next_page)
                     return HttpResponseRedirect(reverse('home_page'))
                 else:
                     return render(request, 'accounts/check_email.html')
