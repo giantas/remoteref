@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+	Search Debtor
+{% endblock %}
+
+{% block content %}
+
+	<form method="get">
+		{{ form }}
+		<input type="submit" value="search" />
+	</form>
+	{% for detail in debtors %}
+	Result {{ forloop.counter }}
+		<pre>Debtor:		{{ detail.debtor }} <br /></pre>
+		<pre>Creditor:	{{ detail.creditor }} <br /></pre>
+		<pre>ID:		{{ detail.id_number }} <br /></pre>
+		<pre>Cell:		{{ detail.cell }} <br /></pre>
+		<pre>Amount:		{{ detail.amount }} <br /></pre>
+		<br />
+	
+	{% endfor %}
+
+{% endblock %}

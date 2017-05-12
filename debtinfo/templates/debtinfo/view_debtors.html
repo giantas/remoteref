@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+	View Debtors
+{% endblock %}
+
+{% block content %}
+	
+	<form method="get">
+		{{ form }}
+		<input type="submit" value="search" />
+	</form>
+	<a href="{% url 'debtinfo:download_table' %}"><button>Download Table</button></a>
+	<table border="1" width="500">
+		<tr>
+			<td align="center"><strong>First Name</strong></td>
+			<td align="center"><strong>Last Name</strong></td>
+			<td align="center"><strong>ID</strong></td>
+			<td align="center"><strong>Cell</strong></td>
+		</tr>
+
+		{% for detail in debtors %}
+			<tr>
+				<td align="center">{{ detail.debtor.first_name }}</td>
+				<td align="center">{{ detail.debtor.last_name }}</td>
+				<td align="center">{{ detail.id_number }}</td>
+				<td align="center">{{ detail.cell }}</td>
+			</tr>
+		{% endfor %}
+
+	</table>
+
+{% endblock %}

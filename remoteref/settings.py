@@ -14,12 +14,13 @@ SECRET_KEY = 'eew#grz3ki4+3ut^lau(&f=$3zbzw%ft2@)@$$onzixbb&0!0x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'debtinfo',
     'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -113,9 +114,10 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
+# Custom User model
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
-# Email (Yahoo) configuration
-
+# Email (Gmail) configuration
 EMAIL_USE_TLS = True
 
 EMAIL_HOST = 'smtp.gmail.com'

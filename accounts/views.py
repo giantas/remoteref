@@ -3,10 +3,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from .forms import UserRegistrationForm, UserLoginForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth import authenticate, login, logout, get_user_model
+#from django.contrib.auth.models import User
+from django.utils.http import urlsafe_base64_decode, force_text
 from django.contrib.auth.tokens import default_token_generator
+from django.conf import settings
+from .models import CustomUser
+
+User = getattr(settings, 'AUTH_USER_MODEL')
 
 
 def register_user(request):
@@ -28,10 +32,11 @@ def register_user(request):
                 messages.error(request, 'Check email')
                 return render(request, 'accounts/check_email.html')
             else:
-                messages.error(request, 'There was an error creating the user. Kindly email admin.')
+                messages.error(
+                    request, 'There was an error creating the user. Kindly email admin.')
 
         else:
-            messages.error(request, 'Form error!')
+            messages.error(request, 'Form error! Check listed errors.')
     else:
         form = UserRegistrationForm()
 
@@ -81,8 +86,8 @@ def logout_user(request):
 
 def activate_user(request, uidb64, token):
     if uidb64 is not None and token is not None:
-        uid = urlsafe_base64_decode(uidb64)
-        user = get_object_or_404(User, pk=uid)
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = CustomUser.objects.get(pk=uid)
         if default_token_generator.check_token(user, token) and not user.is_active:
             user.is_active = True
             user.save()

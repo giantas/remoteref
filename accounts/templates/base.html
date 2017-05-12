@@ -15,12 +15,18 @@
 			<a href="{% url 'accounts:login_user' %}">Log in</a>
 			<a href="{% url 'accounts:logout_user' %}">Logout</a>
 			{{ request.user.username }}
+			<br />
+			<a href="{% url 'debtinfo:search_debtor' %}">Search Customer</a>
+			<a href="{% url 'debtinfo:view_debtors' %}">View Debtors</a>
 		</nav>
+
 		{% for message in messages %}
 			{{ message }}
 		{% endfor %}
 		
 		{% block content %}{% endblock %}
+
+		{% block javascript %}{% endblock %}
 
 	</body>
 

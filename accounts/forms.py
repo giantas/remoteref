@@ -2,8 +2,7 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode
-from django.utils.http import force_bytes
+from django.utils.http import urlsafe_base64_encode, force_bytes, force_text
 from django import forms
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.conf import settings
@@ -22,7 +21,7 @@ class UserRegistrationForm(UserCreationForm):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ('first_name', 'last_name', 'email', 'username')
 
     def save(self, commit=True):
@@ -44,7 +43,7 @@ class UserRegistrationForm(UserCreationForm):
         subject = 'Account Activation - Enstitute'
         text_content = 'You have registered for an account with Enstitute.'
         activation_link = 'http://{0}/accounts/user/validate/{1}/{2}'.format(
-            self.host, uid.decode('utf-8'), token)
+            self.host, force_text(uid), token)
         html_content = '<p>Click --><a href="%s" rel="nofollow">here</a><-- to activate your account.</p>' % activation_link
         from_email = getattr(settings, 'EMAIL_HOST_USER', None)
         to_email = user.email
