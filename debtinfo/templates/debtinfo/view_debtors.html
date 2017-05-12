@@ -5,18 +5,19 @@
 {% endblock %}
 
 {% block content %}
-	
+	<br />
 	<form method="get">
-		{{ form }}
-		<input type="submit" value="search" />
+		<input type="text" size="30" id="q" onkeyup="doSearch();" placeholder="Type to search..." />
 	</form>
 	<a href="{% url 'debtinfo:download_table' %}"><button>Download Table</button></a>
-	<table border="1" width="500">
+	<br />
+	<br />
+	<table border="1" width="500" id="tdebtors">
 		<tr>
-			<td align="center"><strong>First Name</strong></td>
-			<td align="center"><strong>Last Name</strong></td>
-			<td align="center"><strong>ID</strong></td>
-			<td align="center"><strong>Cell</strong></td>
+			<th align="center"><strong>First Name</strong></th>
+			<th align="center"><strong>Last Name</strong></th>
+			<th align="center"><strong>ID</strong></th>
+			<th align="center"><strong>Cell</strong></th>
 		</tr>
 
 		{% for detail in debtors %}
@@ -29,5 +30,44 @@
 		{% endfor %}
 
 	</table>
+
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+//<!--
+function doSearch() {
+    // Declare variables
+    var input, filter, tr, td, i, j, tds, matched;
+    input = document.getElementById("q");
+    filter = input.value.toUpperCase();
+    tr = document.getElementsByTagName("tr");
+
+    // Loop through all table rows
+    // Hide rows which don't match query
+    for (i = 1; i < tr.length; i++) {
+        tds = tr[i].getElementsByTagName("td");
+        matched = false;
+
+        for (j = 0; j < tds.length; j++) {
+            td = tds[j];
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                matched = true;
+                break;
+            }
+
+        }
+
+        if (matched == true) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+
+        }
+    }
+//-->
+</script>
 
 {% endblock %}
