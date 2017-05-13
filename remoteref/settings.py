@@ -63,16 +63,14 @@ WSGI_APPLICATION = 'remoteref.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'remoterefdb',
-        'USER': 'remoterefdbuser',
-        'PASSWORD': 'user_2979eaad3078e6599e4d419d346e70fd_remoteref',
+        'NAME': 'testdb',
+        'USER': 'dev001',
+        'PASSWORD': 'EV5gy2pQPDhC4H&fg3$5qzWL*9P4=D2K8ta9x&Qr2',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

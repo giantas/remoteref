@@ -1,0 +1,105 @@
+_________________________________________________________
+These deployment instructions assume a OpenSUSE Leap 42.1 x64 Linux environment with Python 3.4 (Most, if not all, Linux ditros come with python by default)
+_________________________________________________________
+
+************************START***************************
+_________________________________________________________
+
+_________________________________________________________
+Install PostgreSQL: In terminal, run
+_________________________________________________________
+zypper in postgresql94 postgresql94-contrib postgresql94-server
+
+_________________________________________________________
+Start PostgreSQL: In terminal, run
+_________________________________________________________
+systemctl start postgresql
+
+sudo su
+su - postgres
+
+psql
+CREATE ROLE dev001 WITH ENCRYPTED PASSWORD ' ​ EV5gy2pQPDhC4H&fg3$5qzWL*9P4=D2K8ta9x&Qr2
+';
+ALTER ROLE dev001 WITH LOGIN;
+
+CREATE DATABASE testdb;
+GRANT ALL PRIVILEGES ON DATABASE testdb TO dev001;
+
+_________________________________________________________
+Configure PostgreSQL: In terminal, run
+_________________________________________________________
+cd /var/lib/pgsql/
+cd data/
+vim postgresql.conf
+
+Uncomment line 59 and change the value from localhost to "*".
+Uncomment line 63 to configure the default port.
+listen_addresses = '*'
+port = 5432
+
+systemctl restart postgresql
+
+_________________________________________________________
+Install Pip: In terminal, run
+_________________________________________________________
+sudo zypper install python3-pip python3-setuptools python3-wheel
+
+_________________________________________________________
+Install Virtualenv: In terminal, run
+_________________________________________________________
+sudo pip install virtualenv
+
+mkdir project_folder
+cd project_folder
+virtualenv -p python3 Remote
+source Remote/bin/activate
+
+git clone https://github.com/giantas/remoteref.git
+pip install -r requirements.txt
+
+_________________________________________________________
+Apply migrations: In terminal, run
+_________________________________________________________
+./manage.py migrate
+
+_________________________________________________________
+Create superuser: In terminal, run
+_________________________________________________________
+./manage.py createsuper
+(fill in credentials to your preference)
+
+_________________________________________________________
+Run server: In terminal, run
+_________________________________________________________
+./manage.py runserver 6773
+
+
+_________________________________________________________
+
+************************FINISH***************************
+_________________________________________________________
+Further instructions
+_________________________________________________________
+Either 
+
+Log in 
+	Using the credentials used while creating superuser above
+
+or
+
+Register new user.
+	For effectiveness, connect to the internet before registering (in order for the application to send a confirmation email). 
+	If not connected to the Internet, register a new account. Then, upon successful registration, check for file with the name {username}_activation_fail (replace username with the registered one). Copy activation link to browser. Then continue.
+
+_________________________________________________________
+Roles and permissions
+_________________________________________________________
+Since there are two roles: roleA and roleB, in this application:
+	roleA.is_staff == True
+	roleB.is_staff == False
+Therefore, only staff have access to http://127.0.0.1:6773/debt/info/view.
+
+By default, a registered user is assigned roleB.To access http://127.0.0.1:6773/debt/info/view, only the superuser can change the user's staff status to True. 
+
+To do this, as superuser, head first to http://127.0.0.1:6773/admin/accounts/customuser, select user then check the 'Staff status' checkbox. Then click save.
