@@ -83,7 +83,7 @@ class ViewDebtorsListView(ListView):
     def dispatch(self, request, *args, **kwargs):
         return super(ViewDebtorsListView, self).dispatch(request, *args, **kwargs)
 
-@method_decorator(user_passes_test(lambda u: u.is_staff))
+@user_passes_test(lambda u: u.is_staff)
 def download_table(request):
     """Create Debtors list xlsx file, return download response."""
     debtors = Debtor.objects.all()
