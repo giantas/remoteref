@@ -32,6 +32,9 @@ class Profile(models.Model):
     class Meta:
         db_table = 'tb_profiles'
 
+    def __str__(self):
+        return self.debtor.username
+
 
 class Debtor(models.Model):
     debtor = models.ForeignKey(
@@ -42,13 +45,20 @@ class Debtor(models.Model):
     class Meta:
         db_table = 'tbl_due_listing'
 
+    def __str__(self):
+        return self.debtor.username
+
 
 @receiver(post_save, sender=Profile)
 def add_debtor(sender, **kwargs):
-    """Add a debtor instance for the added profile"""
+    """Add a debtor instance for the added profile."""
 
     profile = kwargs['instance']
 
     if kwargs['created']:
-        debtor, created = Debtor.objects.get_or_create(debtor=profile.debtor,
-                                                       id_number=profile.id_number, cell=profile.cell)
+        try:
+            debtor = Debtor.objects.get(debtor=profile.debtor)
+        except Debtor.DoesNotExist:
+            debtor = Debtor.objects.create(debtor=profile.debtor,id_number=profile.id_number, cell=profile.cell)
+        else:
+            pass
