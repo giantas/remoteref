@@ -67,7 +67,7 @@ class ViewDebtors(ListView):
     context_object_name = 'debtors'
     template_name = 'debtinfo/view_debtors.html'
 
-    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request, *args, **kwargs):
         return super(ViewDebtors, self).dispatch(request, *args, **kwargs)
 

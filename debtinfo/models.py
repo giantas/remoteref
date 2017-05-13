@@ -59,6 +59,7 @@ def add_debtor(sender, **kwargs):
         try:
             debtor = Debtor.objects.get(debtor=profile.debtor)
         except Debtor.DoesNotExist:
-            debtor = Debtor.objects.create(debtor=profile.debtor,id_number=profile.id_number, cell=profile.cell)
+            debtor = Debtor.objects.create(
+                debtor=profile.debtor, id_number=profile.id_number, cell=profile.cell)
         else:
             pass

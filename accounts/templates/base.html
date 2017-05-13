@@ -20,7 +20,7 @@
 			{{ request.user.username }}
 			<br />
 			<a href="{% url 'debtinfo:search_debtor' %}">Search Customer</a>
-			{% if request.user.is_superuser %}
+			{% if request.user.is_staff %}
 			<a href="{% url 'debtinfo:view_debtors' %}">View Debtors</a>
 			{% endif %}
 		</nav>
