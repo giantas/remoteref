@@ -104,3 +104,10 @@ Therefore, only staff have access to http://127.0.0.1:6773/debt/info/view.
 By default, a registered user is assigned roleB.To access http://127.0.0.1:6773/debt/info/view, only the superuser can change the user's staff status to True. 
 
 To do this, as superuser, head first to http://127.0.0.1:6773/admin/accounts/customuser, select user then check the 'Staff status' checkbox. Then click save.
+
+_________________________________________________________
+Add Customer Profile
+_________________________________________________________
+While logged in as superuser, go to http://127.0.0.1:6773/admin/debtinfo/profile/. Click add profile, then fill in the details. Click save.
+
+It is assumed that the Debtor and the Creditor are listed in the database as users. It is further assumed that the Creditor may not always be the lender but may also be the individual in charge of oversight of the lending process.
