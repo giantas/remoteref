@@ -1,11 +1,17 @@
 from django.contrib import admin
 from .models import *
 
+
 class ProfileAdmin(admin.ModelAdmin):
-	list_display = ('debtor', 'creditor')
+    """Customizes the Profile content displayed on the admin site."""
+
+    list_display = ('debtor', 'creditor')
+
 
 class DebtorAdmin(admin.ModelAdmin):
-	list_display = ('debtor', 'id_number')
+    """Customizes the Debtor content displayed on the admin site."""
+
+    list_display = ('debtor', 'id_number')
 
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Debtor, DebtorAdmin)

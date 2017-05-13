@@ -21,6 +21,8 @@ class CurrencyField(models.DecimalField):
 
 
 class Profile(models.Model):
+    """Defines a database model of debt information."""
+
     debtor = models.ForeignKey(settings.AUTH_USER_MODEL, null=False,
                                on_delete=models.CASCADE, related_name='profile_debtor')
     creditor = models.ForeignKey(settings.AUTH_USER_MODEL, null=False,
@@ -37,6 +39,8 @@ class Profile(models.Model):
 
 
 class Debtor(models.Model):
+    """Defines a database model of a debtor."""
+
     debtor = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE, related_name='debtor')
     id_number = models.CharField(max_length=10, blank=False)
@@ -51,7 +55,7 @@ class Debtor(models.Model):
 
 @receiver(post_save, sender=Profile)
 def add_debtor(sender, **kwargs):
-    """Add a debtor instance for the added profile."""
+    """Creates a debtor instance for the added profile."""
 
     profile = kwargs['instance']
 
