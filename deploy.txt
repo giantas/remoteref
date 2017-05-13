@@ -1,5 +1,7 @@
 _________________________________________________________
-These deployment instructions assume a OpenSUSE Leap 42.1 x64 Linux environment with Python 3.4 (Most, if not all, Linux ditros come with python by default)
+These deployment instructions assume a OpenSUSE Leap 42.1 
+x64 Linux environment with Python 3.4 
+(Most, if not all, Linux ditros come with python by default)
 _________________________________________________________
 
 ************************START***************************
@@ -19,8 +21,7 @@ sudo su
 su - postgres
 
 psql
-CREATE ROLE dev001 WITH ENCRYPTED PASSWORD ' ​ EV5gy2pQPDhC4H&fg3$5qzWL*9P4=D2K8ta9x&Qr2
-';
+CREATE ROLE dev001 WITH ENCRYPTED PASSWORD 'EV5gy2pQPDhC4H&fg3$5qzWL*9P4=D2K8ta9x&Qr2';
 ALTER ROLE dev001 WITH LOGIN;
 
 CREATE DATABASE testdb;
