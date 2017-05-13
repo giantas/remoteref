@@ -13,8 +13,11 @@ import re
 import openpyxl
 
 
-class SearchDebtor(ListView, FormMixin):
-    """Defines a ListView of Debt information and a search form."""
+class SearchDebtorListView(ListView, FormMixin):
+    """A ListView of Debt information together with a search form.
+
+    Inherits from ListView and FormMixin.
+    """
 
     model = Profile
     template_name = 'debtinfo/search_debtor.html'
@@ -22,6 +25,10 @@ class SearchDebtor(ListView, FormMixin):
     form_class = SearchForm
 
     def get_queryset(self):
+        """Check if query exists, return objects matching query else return None.
+
+        Override ListView.get_queryset().
+        """
         if 'q' in self.request.GET and self.request.GET['q'].strip():
             search_query = self.request.GET['q'].strip()
             field_list = ['id_number', 'cell']
@@ -48,6 +55,7 @@ class SearchDebtor(ListView, FormMixin):
         return ListView.get(self, request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        """Validate form data and save to database, return response else return form."""
         self.object = None
         self.form = self.get_form(self.form_class)
 
@@ -64,8 +72,8 @@ class SearchDebtor(ListView, FormMixin):
         return HttpResponseRedirect(reverse_lazy('debtinfo:search_debtors'))
 
 
-class ViewDebtors(ListView):
-    """Defines a ListView of Debtor information."""
+class ViewDebtorsListView(ListView):
+    """A ListView of Debtor information."""
 
     model = Debtor
     context_object_name = 'debtors'
@@ -77,7 +85,7 @@ class ViewDebtors(ListView):
 
 
 def download_table(request):
-    """Generates excel file and downloads it."""
+    """Create Debtors list xlsx file, return download response."""
     debtors = Debtor.objects.all()
 
     wb = openpyxl.Workbook(write_only=True)
@@ -105,7 +113,7 @@ def counter(count, singular, plural):
 
 # Search snippet
 def search_fields(query_string, field_list, model):
-    """Initialises database search of the query."""
+    """Initialise database search of the query provided."""
     entry_query = get_query(query_string, field_list)
     found_entries = model.objects.filter(entry_query)
 
@@ -115,21 +123,20 @@ def search_fields(query_string, field_list, model):
 def normalize_query(query_string,
                     findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
                     normspace=re.compile(r'\s{2,}').sub):
-    """ Splits the query string in invidual keywords, getting rid of unecessary spaces
-        and grouping quoted words together.
-        Example:
+    """Split query into individual keywords, group quoted words, return list of terms.Example:
 
-        >>> normalize_query('  some random  words "with   quotes  " and   spaces')
-        ['some', 'random', 'words', 'with quotes', 'and', 'spaces']
+    >>> normalize_query('  some random  words "with   quotes  " and   spaces')
+    ['some', 'random', 'words', 'with quotes', 'and', 'spaces']
 
     """
     return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 
 def get_query(query_string, search_fields):
-    """ Returns a query, that is a combination of Q objects. That combination
-        aims to search keywords within a model by testing the given search fields.
+    """ Return a query that is a combination of Q objects. 
 
+    That combination aims to search keywords within a model
+    by testing the given search fields.
     """
     query = None  # Query to search for every search term
     terms = normalize_query(query_string)

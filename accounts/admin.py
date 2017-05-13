@@ -5,7 +5,7 @@ User = get_user_model()
 
 
 class UserAdmin(admin.ModelAdmin):
-    """Customizes the CustomUser content displayed on the admin site."""
+    """Customise the CustomUser content displayed on the admin site."""
 
     list_display = ('username', 'email', 'is_staff')
     readonly_fields = ('username', 'last_login', 'date_joined', 'email')

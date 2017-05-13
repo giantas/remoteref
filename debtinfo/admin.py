@@ -3,13 +3,13 @@ from .models import *
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    """Customizes the Profile content displayed on the admin site."""
+    """Customise the Profile content displayed on the admin site."""
 
     list_display = ('debtor', 'creditor')
 
 
 class DebtorAdmin(admin.ModelAdmin):
-    """Customizes the Debtor content displayed on the admin site."""
+    """Customise the Debtor content displayed on the admin site."""
 
     list_display = ('debtor', 'id_number')
 

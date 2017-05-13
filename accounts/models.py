@@ -4,6 +4,11 @@ from django.conf import settings
 
 
 class CustomUser(AbstractUser):
+    """A customised user model.
+
+    Inherits from AbstractUser.
+    """
+
     from_email = getattr(settings, 'EMAIL_HOST_USER')
 
     class Meta:

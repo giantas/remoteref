@@ -14,7 +14,7 @@ User = getattr(settings, 'AUTH_USER_MODEL')
 
 
 def register_user(request):
-    """Displays user registration form and creates the user."""
+    """Create UserRegistrationForm, return form else validate and create CustomUser instance."""
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('home_page'))
 
@@ -45,7 +45,7 @@ def register_user(request):
 
 
 def login_user(request):
-    """Validates user credentials and logs user in."""
+    """Validate user credentials and log in else display error."""
     next_page = request.GET.get('next')
     if next_page:
         next_page = next_page.strip()
@@ -87,7 +87,7 @@ def login_user(request):
 
 
 def logout_user(request):
-    """Logs out the user."""
+    """Log out the user, return redirect response."""
     if request.user.is_authenticated():
         logout(request)
         messages.success(request, 'You have been logged out successfully.')
@@ -95,7 +95,7 @@ def logout_user(request):
 
 
 def activate_user(request, uidb64, token):
-    """Validates link and marks user as active."""
+    """Validate link and mark user as active else return error and redirect response."""
     if uidb64 is not None and token is not None:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = CustomUser.objects.get(pk=uid)

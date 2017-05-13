@@ -12,7 +12,10 @@ import os
 
 
 class UserRegistrationForm(UserCreationForm):
-    """Defines a user registration form for user creation."""
+    """A user registration form for user creation.
+
+    Inherits from UserCreationForm.
+    """
 
     first_name = forms.CharField(required=True, min_length=2)
     last_name = forms.CharField(required=True, min_length=2)
@@ -48,7 +51,7 @@ class UserRegistrationForm(UserCreationForm):
         return user
 
     def email_token(self, user):
-        """Sends an activation link to the user."""
+        """Generate activation email and to user else write to file."""
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         subject = 'Account Activation - Enstitute'
@@ -72,7 +75,10 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserLoginForm(AuthenticationForm):
-    """Defines a user registration form for user creation."""
+    """A user registration form for user creation.
+
+    Inherits from AuthenticationForm.
+    """
 
     username = forms.CharField(max_length=30)
     password = forms.CharField(max_length=100, widget=forms.PasswordInput())

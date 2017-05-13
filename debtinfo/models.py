@@ -6,7 +6,10 @@ from django.db.models.signals import post_save
 
 
 class CurrencyField(models.DecimalField):
-    """Formats value into currency format."""
+    """Format value into currency format.
+
+    Inherits from models.DecimalField.
+    """
 
     def __init__(self, *args, **kwargs):
         kwargs['max_digits'] = 11
@@ -21,7 +24,7 @@ class CurrencyField(models.DecimalField):
 
 
 class Profile(models.Model):
-    """Defines a database model of debt information."""
+    """A database model of debt information."""
 
     debtor = models.ForeignKey(settings.AUTH_USER_MODEL, null=False,
                                on_delete=models.CASCADE, related_name='profile_debtor')
@@ -39,7 +42,7 @@ class Profile(models.Model):
 
 
 class Debtor(models.Model):
-    """Defines a database model of a debtor."""
+    """A database model of a Debtor."""
 
     debtor = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=False, on_delete=models.CASCADE, related_name='debtor')
@@ -55,8 +58,7 @@ class Debtor(models.Model):
 
 @receiver(post_save, sender=Profile)
 def add_debtor(sender, **kwargs):
-    """Creates a debtor instance for the added profile."""
-
+    """Create a Debtor instance for a created Profile instance."""
     profile = kwargs['instance']
 
     if kwargs['created']:

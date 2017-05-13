@@ -3,7 +3,7 @@ from django import forms
 
 
 class SearchForm(forms.Form):
-    """Configures the search form displayed to the user."""
+    """Configure and return a search form."""
 
     q = forms.CharField(required=True)
 
