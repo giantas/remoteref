@@ -6,6 +6,7 @@ from django.utils.http import urlsafe_base64_encode, force_bytes, force_text
 from django import forms
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.conf import settings
+from django.core.validators import RegexValidator
 import socket
 import os
 
@@ -13,7 +14,14 @@ import os
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(required=True, min_length=2)
     last_name = forms.CharField(required=True, min_length=2)
-    username = forms.CharField(required=True, min_length=6)
+    username = forms.CharField(required=True,
+                               min_length=6, validators=[
+                                   RegexValidator(
+                                       regex='^[a-zA-Z0-9]*$',
+                                       message='Username must be Alphanumeric!',
+                                       code='invalid_username'
+                                   ),
+                               ])
     email = forms.CharField(required=True, widget=forms.EmailInput())
 
     def __init__(self, *args, **kwargs):
