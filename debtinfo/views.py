@@ -7,6 +7,8 @@ from django.views.generic.edit import FormMixin
 from django.db.models import Q
 from django.template.defaultfilters import pluralize
 from django.http import HttpResponse
+from django.contrib.auth.decorators import user_passes_test, permission_required
+from django.utils.decorators import method_decorator
 import re
 import openpyxl
 
@@ -64,6 +66,10 @@ class ViewDebtors(ListView):
     model = Debtor
     context_object_name = 'debtors'
     template_name = 'debtinfo/view_debtors.html'
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ViewDebtors, self).dispatch(request, *args, **kwargs)
 
 
 def download_table(request):
@@ -125,7 +131,7 @@ def get_query(query_string, search_fields):
     for term in terms:
         or_query = None  # Query to search for a given term in each field
         for field_name in search_fields:
-            q = Q(**{"%s__icontains" % field_name: term})
+            q = Q(**{"%s__iexact" % field_name: term})
             if or_query is None:
                 or_query = q
             else:
