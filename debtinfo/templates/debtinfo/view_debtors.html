@@ -9,7 +9,8 @@
 	<form method="get">
 		<input type="text" size="30" id="q" onkeyup="doSearch();" placeholder="Type to search..." />
 	</form>
-	<a href="{% url 'debtinfo:download_table' %}"><button>Download Table</button></a>
+	<a href="{% url 'debtinfo:download_table' %}"><button
+		{% if not debtors %}disabled{% endif %}>Download Table</button></a>
 	<br />
 	<br />
 	<table border="1" width="500" id="tdebtors">
