@@ -30,7 +30,7 @@ def register_user(request):
             )
 
             if user is None or not user.is_active:
-                messages.error(request, 'Check email')
+                messages.info(request, 'Check email')
                 return render(request, 'accounts/check_email.html')
             else:
                 messages.error(
