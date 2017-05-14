@@ -11,7 +11,7 @@
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="{% static 'css/style.css' %}?q=1" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}?q=2" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 
 	<body>
@@ -65,6 +65,16 @@
 			<div class="section">
 			{% block content %}{% endblock %}
 			</div>
+		</div>
+
+		<div class="footer">
+			<div class="footer-copyright">
+		      <div class="container">
+		      Copyright &copy; 2017 <a class="orange-text text-lighten-3" href="https://github.com/giantas">Aswa Paul</a>
+		      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		      Theme by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+		      </div>
+		    </div>
 		</div>
 
 		{% block javascript %}{% endblock %}
