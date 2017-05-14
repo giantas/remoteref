@@ -79,7 +79,7 @@ def login_user(request):
                 messages.error(request, 'User does not exist.')
 
         else:
-            messages.error(request, 'Form is invalid')
+            messages.error(request, 'Invalid credentials')
 
     else:
         form = UserLoginForm()
