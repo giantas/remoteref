@@ -110,4 +110,8 @@ Add Customer Profile
 _________________________________________________________
 While logged in as superuser, go to http://127.0.0.1:6773/admin/debtinfo/profile/. Click add profile, then fill in the details. Click save.
 
-It is assumed that the Debtor and the Creditor are listed in the database as users. It is further assumed that the Creditor may not always be the lender but may also be the individual in charge of oversight of the lending process.
+_________________________________________________________
+Assumptions
+_________________________________________________________
+It is assumed that the Debtor and the Creditor are listed in the database as users. 
+It is further assumed that the Creditor may not always be the lender but may also be the individual in charge of oversight of the lending process.
