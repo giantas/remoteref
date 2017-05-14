@@ -6,6 +6,41 @@
 
 {% block content %}
 
-	{% lorem 3 p %}
+	<div class="container">
+      <h1 class="header center orange-text">RemoteRef</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">
+        	A remote reference application based on Material Design
+        </h5>
+      </div>
+      <div class="row center">
+        <div class="card z-depth-0">
+		    <div class="card-content">
+		      <p>Check customer debt information remotely.</p>
+		    </div>
+		    <div class="card-tabs">
+		      <ul class="tabs tabs-fixed-width">
+		        <li class="tab"><a href="#test4">Search Customer</a></li>
+		        {% if request.user.is_staff %}
+		        <li class="tab"><a class="active" href="#test5">View Debtors</a></li>
+		        {% endif %}
+		      </ul>
+		    </div>
+		    <div class="card-content grey lighten-4">
+		      <div id="test4">
+		      	<a href="{% url 'debtinfo:search_debtor' %}">Look up</a> customer debt information by national ID or mobile number.
+		      </div>
+		      {% if request.user.is_staff %}
+		      <div id="test5">
+		      	<a href="{% url 'debtinfo:view_debtors' %}">View</a> and download debtors list.
+		      </div>
+		      {% endif %}
+		    </div>
+		</div>
+
+      </div>
+      <br><br>
+
+    </div>
 
 {% endblock %}
