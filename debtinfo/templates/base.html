@@ -1,0 +1,70 @@
+{% load staticfiles %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>{% block page_title %}{% endblock %}</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}?q=1" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+	<body>
+		<nav class="light-blue lighten-1" role="navigation">
+		    <div class="nav-wrapper container"><a id="logo-container" href="{% url 'home_page' %}" class="brand-logo">RemoteRef</a>
+		      {% if not request.user.is_authenticated %}
+		      <ul class="right hide-on-med-and-down">
+		        <li><a href="{% url 'accounts:register_user' %}">Register</a></li>
+		      </ul>
+		      <ul class="right hide-on-med-and-down">
+		        <li><a href="{% url 'accounts:login_user' %}">Log in</a></li>
+		      </ul>
+		      {% else %}
+		      <ul class="right hide-on-med-and-down">
+		        <li><a href="{% url 'accounts:logout_user' %}">Logout</a></li>
+		      </ul>
+		      <ul class="right hide-on-med-and-down">
+		        <li><a>{{ request.user.username }}</a></li>
+		      </ul>
+		      <ul class="right hide-on-med-and-down">
+		        <li><a href="{% url 'debtinfo:search_debtor' %}">Search Customer</a></li>
+		      </ul>
+		      {% endif %}
+		      {% if request.user.is_staff %}
+		      <ul class="right hide-on-med-and-down">
+		        <li><a href="{% url 'debtinfo:view_debtors' %}">View Debtors</a></li>
+		      </ul>
+		      {% endif %}
+		    </div>
+		</nav>
+		<div class="container">
+			{% if messages %}
+			<div class="section">
+				<ul class="collection">
+				{% for message in messages %}
+					<li class="collection-item {{ message.tags }}">{{ message }}</li>
+				{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+
+			<div class="section">
+			{% block content %}{% endblock %}
+			</div>
+		</div>
+
+		{% block javascript %}{% endblock %}
+
+		<!--  Scripts-->
+		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="{% static 'js/materialize.js' %}"></script>
+		<script src="{% static 'js/init.js' %}"></script>
+
+	</body>
+
+</html>

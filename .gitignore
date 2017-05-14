@@ -91,3 +91,6 @@ ENV/
 # Sublime Text Project Files
 remoteref.sublime-project
 remoteref.sublime-workspace
+
+# Application Instructions
+DevTest-002.pdf

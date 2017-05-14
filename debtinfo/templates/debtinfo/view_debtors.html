@@ -6,31 +6,44 @@
 
 {% block content %}
 	<br />
-	<form method="get">
-		<input type="text" size="30" id="q" onkeyup="doSearch();" placeholder="Type to search..." />
-	</form>
-	<a href="{% url 'debtinfo:download_table' %}"><button
-		{% if not debtors %}disabled{% endif %}>Download Table</button></a>
+	<div class="row">
+		<form method="get" class="col s12">
+			<div class="input-field col s6">
+				<input type="text" size="30" id="q" onkeyup="doSearch();" placeholder="Type to search..." class="validate" />
+				<label for="q">Search</label>
+			</div>
+		</form>
+	</div>
+	<a href="{% url 'debtinfo:download_table' %}">
+		<button class="btn-flat btn-large waves-effect waves-light orange-text"
+		{% if not debtors %}disabled{% endif %}>
+			Download Table
+		</button>
+	</a>
 	<br />
 	<br />
-	<table border="1" width="500" id="tdebtors">
-		<tr>
-			<th align="center"><strong>First Name</strong></th>
-			<th align="center"><strong>Last Name</strong></th>
-			<th align="center"><strong>ID</strong></th>
-			<th align="center"><strong>Cell</strong></th>
-		</tr>
+	<div class="row">
+		<div class="col s12">
+			<table class="highlight bordered" width="500" id="tdebtors">
+				<tr>
+					<th align="center"><strong>First Name</strong></th>
+					<th align="center"><strong>Last Name</strong></th>
+					<th align="center"><strong>ID</strong></th>
+					<th align="center"><strong>Cell</strong></th>
+				</tr>
 
-		{% for detail in debtors %}
-			<tr>
-				<td align="center">{{ detail.debtor.first_name }}</td>
-				<td align="center">{{ detail.debtor.last_name }}</td>
-				<td align="center">{{ detail.id_number }}</td>
-				<td align="center">{{ detail.cell }}</td>
-			</tr>
-		{% endfor %}
+				{% for detail in debtors %}
+					<tr>
+						<td align="center">{{ detail.debtor.first_name }}</td>
+						<td align="center">{{ detail.debtor.last_name }}</td>
+						<td align="center">{{ detail.id_number }}</td>
+						<td align="center">{{ detail.cell }}</td>
+					</tr>
+				{% endfor %}
 
-	</table>
+			</table>
+		</div>
+	</div>
 
 {% endblock %}
 
