@@ -6,7 +6,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>{% block page_title %}{% endblock %}</title>
+  <title>RemoteRef | {% block page_title %}{% endblock %}</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -43,6 +43,15 @@
 		    </div>
 		</nav>
 		<div class="container">
+			<br />
+			<div class="row">
+				<div class="col s12">
+					<h4 class="header teal-text darken-4">
+						{% block caption %}{% endblock %}
+					</h4>
+				</div>
+			</div>
+
 			{% if messages %}
 			<div class="section">
 				<ul class="collection">

@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block page_title %}
-	Search Debtor
-{% endblock %}
+{% block page_title %}Search Debtor{% endblock %}
+
+{% block caption %}Search Customer{% endblock %}
 
 {% block content %}
 	<br />
@@ -53,7 +53,13 @@
 	        <div class="col s12">
 	          <div class="card blue-grey darken-1">
 	            <div class="card-content white-text">
-	              <p>No results found</p>
+	              <p>
+	              {% if request.GET.q %}
+	              No results found
+	              {% else %}
+	              Results will be shown here.
+	              {% endif %}
+	          	  </p>
 	            </div>
 	          </div>
 	        </div>

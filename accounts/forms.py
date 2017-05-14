@@ -17,8 +17,10 @@ class UserRegistrationForm(UserCreationForm):
     Inherits from UserCreationForm.
     """
 
-    first_name = forms.CharField(required=True, min_length=2)
-    last_name = forms.CharField(required=True, min_length=2)
+    first_name = forms.CharField(
+        required=True, min_length=2, widget=forms.TextInput(attrs={'class': 'validate'}))
+    last_name = forms.CharField(
+        required=True, min_length=2, widget=forms.TextInput(attrs={'class': 'validate'}))
     username = forms.CharField(required=True,
                                min_length=6, validators=[
                                    RegexValidator(
@@ -26,8 +28,8 @@ class UserRegistrationForm(UserCreationForm):
                                        message='Username must be Alphanumeric!',
                                        code='invalid_username'
                                    ),
-                               ])
-    email = forms.CharField(required=True, widget=forms.EmailInput())
+                               ], widget=forms.TextInput(attrs={'class': 'validate'}))
+    email = forms.CharField(required=True, widget=forms.EmailInput(attrs={'class': 'validate'}))
 
     def __init__(self, *args, **kwargs):
         self.host = kwargs.pop('host', None)
@@ -80,5 +82,5 @@ class UserLoginForm(AuthenticationForm):
     Inherits from AuthenticationForm.
     """
 
-    username = forms.CharField(max_length=30)
-    password = forms.CharField(max_length=100, widget=forms.PasswordInput())
+    username = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'validate'}))
+    password = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class': 'validate'}))

@@ -37,7 +37,7 @@ def register_user(request):
                     request, 'There was an error creating the user. Kindly email admin.')
 
         else:
-            messages.error(request, 'Form error! Check listed errors.')
+            messages.error(request, 'Invalid data! Check listed errors.')
     else:
         form = UserRegistrationForm()
 
