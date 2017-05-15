@@ -8,7 +8,7 @@ class UserAdmin(admin.ModelAdmin):
     """Customise the CustomUser content displayed on the admin site."""
 
     list_display = ('username', 'email', 'is_staff')
-    readonly_fields = ('username', 'last_login', 'date_joined', 'email')
+    readonly_fields = ('username', 'last_login', 'date_joined', 'email', 'first_name', 'last_name')
     exclude = ('password',)
 
 admin.site.register(User, UserAdmin)

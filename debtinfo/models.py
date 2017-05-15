@@ -5,34 +5,13 @@ from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save
 
 
-class CurrencyField(models.DecimalField):
-    """Format value into currency format.
-
-    Inherits from models.DecimalField.
-    """
-
-    def __init__(self, *args, **kwargs):
-        kwargs['max_digits'] = 11
-        kwargs['decimal_places'] = 2
-        super(CurrencyField, self).__init__(*args, **kwargs)
-
-    def to_python(self, value):
-        try:
-            return super(CurrencyField, self).to_python(value).quantize(Decimal('0.01'))
-        except AttributeError:
-            return None
-
-
 class Profile(models.Model):
     """A database model of debt information."""
 
     debtor = models.ForeignKey(settings.AUTH_USER_MODEL, null=False,
                                on_delete=models.CASCADE, related_name='profile_debtor')
-    creditor = models.ForeignKey(settings.AUTH_USER_MODEL, null=False,
-                                 on_delete=models.CASCADE, related_name='profile_creditor')
     id_number = models.CharField(max_length=10, null=False)
     cell = models.CharField(max_length=12, null=False)
-    amount = CurrencyField()
 
     class Meta:
         db_table = 'tb_profiles'

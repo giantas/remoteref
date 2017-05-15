@@ -5,6 +5,6 @@ from .models import *
 class ProfileAdmin(admin.ModelAdmin):
     """Customise the Profile content displayed on the admin site."""
 
-    list_display = ('debtor', 'creditor')
+    list_display = ('debtor',)
 
 admin.site.register(Profile, ProfileAdmin)
